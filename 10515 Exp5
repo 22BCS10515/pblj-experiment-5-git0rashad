@@ -1,0 +1,57 @@
+import java.util.*;
+class Card {
+    String symbol;
+    int number;
+
+    public Card(String symbol, int number) {
+        this.symbol = symbol;
+        this.number = number;
+    }
+
+    @Override
+    public String toString() {
+        return symbol + " " + number;
+    }
+}
+
+public class CardGame {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Map<String, List<Card>> cardMap = new HashMap<>();
+        
+        System.out.println("Enter Number of Cards:");
+        int n = scanner.nextInt();
+        scanner.nextLine();
+        
+        for (int i = 1; i <= n; i++) {
+            System.out.println("Enter card " + i + ":");
+            String symbol = scanner.nextLine().trim();
+            int number = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+            
+            cardMap.putIfAbsent(symbol, new ArrayList<>());
+            cardMap.get(symbol).add(new Card(symbol, number));
+        }
+        
+        List<String> distinctSymbols = new ArrayList<>(cardMap.keySet());
+        Collections.sort(distinctSymbols);
+        
+        System.out.println("Distinct Symbols are:");
+        System.out.println(String.join(" ", distinctSymbols));
+        
+        for (String symbol : distinctSymbols) {
+            System.out.println("Cards in " + symbol + " Symbol");
+            List<Card> cards = cardMap.get(symbol);
+            for (Card card : cards) {
+                System.out.println(card);
+            }
+            
+            int totalCards = cards.size();
+            int sumOfNumbers = cards.stream().mapToInt(c -> c.number).sum();
+            System.out.println("Number of cards : " + totalCards);
+            System.out.println("Sum of Numbers : " + sumOfNumbers);
+        }
+        
+        scanner.close();
+    }
+}
