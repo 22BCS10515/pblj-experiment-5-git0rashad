@@ -1,0 +1,37 @@
+import java.util.*;
+public class SumCalculator {
+    
+    // Method to parse a list of strings into a list of Integer objects
+    public static List<Integer> parseStringList(List<String> stringNumbers) {
+        List<Integer> numbers = new ArrayList<>();
+        for (String str : stringNumbers) {
+            numbers.add(Integer.parseInt(str)); // Autoboxing
+        }
+        return numbers;
+    }
+    
+    // Method to calculate sum using unboxing
+    public static int calculateSum(List<Integer> numbers) {
+        int sum = 0;
+        for (Integer num : numbers) {
+            sum += num; // Unboxing
+        }
+        return sum;
+    }
+    
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("Enter numbers separated by space:");
+        String input = scanner.nextLine();
+        
+        List<String> stringNumbers = Arrays.asList(input.split(" "));
+        List<Integer> numbers = parseStringList(stringNumbers);
+        
+        int sum = calculateSum(numbers);
+        
+        System.out.println("Sum of numbers: " + sum);
+        
+        scanner.close();
+    }
+}
